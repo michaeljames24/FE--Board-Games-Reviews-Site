@@ -9,3 +9,15 @@ export const fetchAllReviews = () => {
     return data;
   });
 };
+
+export const fetchAllCategories = () => {
+  return api.get(`/categories`).then(({ data }) => {
+    return data;
+  });
+};
+
+export const fetchReviewsByCategory = (category) => {
+  return api.get(`/reviews?category=${category}`).then(({ data }) => {
+    return data;
+  });
+};
