@@ -34,6 +34,7 @@ code {
   text-align: center;
   line-height: 40px;
   color: rgb(30, 30, 30);
+  text-transform: capitalize;
 }
 
 #navBarIcon {
@@ -67,6 +68,13 @@ code {
   text-align: left;
   margin-left: 20px;
   line-height: 50px;
+  text-decoration: none;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
 }
 
 .listContainer {
@@ -108,4 +116,34 @@ code {
 .reviewUser {
   font-size: 11px;
   color:rgb(0, 17, 142)
+}
+
+.categoriesHeader {
+  margin-top: 10vh;
+  width: 100%;
+  height: 90vh;
+  text-align: center;
+}
+
+.categoryCard {
+    background-color: white;
+    width: 75vw;
+    height: auto;
+    padding: 10px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    box-shadow: 0 8px 12px 0 gainsboro;
+    text-align: center;
+}
+
+.categorySlug {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.categoryDesc {
+  font-style: italic;
 }
