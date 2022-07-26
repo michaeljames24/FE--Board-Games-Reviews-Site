@@ -13,6 +13,8 @@ export default function Header(props) {
 
     if (props.review) {
 
+        const trimmedBody = props.review.review_body.length > 100 ? props.review.review_body.slice(0,(props.review.review_body.indexOf(" ", 95))) + "…" : props.review.review_body;
+
         return (
             <div className="reviewCard">
                 <div className="reviewDate">date posted: {props.review.created_at}</div>
@@ -20,7 +22,7 @@ export default function Header(props) {
                 <div className="reviewTitle">{props.review.title}</div>
                 <div className="reviewUser">{props.review.owner}</div>
                 <br />
-                <div className="reviewBody">"{props.review.review_body}"</div>
+                <div className="reviewBody">"{trimmedBody}"</div>
                 <br />
                 <div className="reviewVotes">votes: {props.review.votes}</div>
             </div>
