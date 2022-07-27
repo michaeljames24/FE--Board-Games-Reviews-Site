@@ -118,6 +118,12 @@ a:visited {
   color:rgb(0, 17, 142)
 }
 
+.reviewRowFive {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .categoriesHeader {
   margin-top: 10vh;
   width: 100%;
@@ -146,4 +152,12 @@ a:visited {
 
 .categoryDesc {
   font-style: italic;
+}
+
+.individualReview {
+  margin: 10vh 5vw 0 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2vh;
 }

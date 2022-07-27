@@ -15,7 +15,7 @@ export default function Navigation() {
         <div id="navigation_modal">
             <div className="navigation_bar">
                 <span className="close_navigation_btn" onClick={ () => {closeNavigation()}} >&times;</span>
-                <div className="navItem"><Link to="/" onClick={ () => {setCategoryFilter(""); closeNavigation()}}>Reviews</Link></div>
+                <div className="navItem"><Link to="/reviews" onClick={ () => {setCategoryFilter(""); closeNavigation()}}>Reviews</Link></div>
                 <div className="navItem"><Link to="/categories" onClick={ () => {closeNavigation()}}>Categories</Link></div>
                 <div className="navItem">Users</div>
                 <div className="navItem">Profile</div>
