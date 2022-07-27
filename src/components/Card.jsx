@@ -8,7 +8,6 @@ export default function Header(props) {
 
     function viewCategory(category) {
         setCategoryFilter(category);
-        //nagivate to category path. Then in Reviews component, look at categoryFilter state and decide what api function to call.
     }
 
     if (props.review) {
@@ -24,7 +23,10 @@ export default function Header(props) {
                 <br />
                 <div className="reviewBody">"{trimmedBody}"</div>
                 <br />
-                <div className="reviewVotes">votes: {props.review.votes}</div>
+                <div className="reviewRowFive">
+                    <div className="reviewVotes">votes: {props.review.votes}</div>
+                    <Link to={{pathname: `/reviews/${props.review.review_id}`}}><button className="reviewViewBtn">View Review</button></Link>
+                </div>
             </div>
         );
 
@@ -39,6 +41,5 @@ export default function Header(props) {
         )
 
     }
-
-
+    
 }
