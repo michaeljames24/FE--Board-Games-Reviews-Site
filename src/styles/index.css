@@ -161,3 +161,74 @@ a:visited {
   align-items: center;
   row-gap: 2vh;
 }
+
+#dynamicVotes {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#votingErrorMsg {
+  display: none;
+  width: 100%;
+  height: auto;
+  border: 1px solid red;
+  text-align: center;
+  color: red;
+}
+
+.votesRow {
+  display: flex;
+  gap: 5px;
+  line-height: 18px;
+  align-items: center;
+}
+
+.upVoteBtn {
+  background-color: transparent;
+  color: green;
+  font-weight: bolder;
+  font-size: 18px;
+  border: none;
+}
+
+.downVoteBtn {
+  background-color: transparent;
+  color: red;
+  font-weight: bolder;
+  font-size: 18px;
+  border: none;
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2vh;
+  margin: 0 5vw;
+  align-items: left;
+}
+
+#noCommentsMsg {
+  display: none;
+}
+
+.commentCard {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  background-color: white;
+  row-gap: 4px;
+}
+
+.commentDate {
+  font-size: 10px;
+  color: slategray;
+}
+
+.commentVotes {
+  font-size: 11px;
+}
+
+.commentAuthor {
+  font-size: 11px;
+  color:rgb(0, 17, 142)
+}

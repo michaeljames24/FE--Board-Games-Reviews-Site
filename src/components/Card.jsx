@@ -30,7 +30,9 @@ export default function Header(props) {
             </div>
         );
 
-    } else if (props.category) {
+    } 
+
+    if (props.category) {
         
         return (
             <div className="categoryCard">
@@ -40,6 +42,21 @@ export default function Header(props) {
             </div>
         )
 
+    }
+
+    if (props.comment) {
+
+        const commentDate = new Date(props.comment.created_at);
+        const posted_on = `${commentDate.getDate()}/${commentDate.getMonth() + 1}/${commentDate.getFullYear()} - ${commentDate.getHours()}:${commentDate.getMinutes()}`;
+
+        return (
+            <div className="commentCard">
+                <div className="commentDate">{posted_on}</div>
+                <div className="commentAuthor">{props.comment.author}</div>
+                <div className="commentBody">{props.comment.body}</div>
+                <div className="commentVotes">Votes: {props.comment.votes}</div>
+            </div>
+        )
     }
     
 }
