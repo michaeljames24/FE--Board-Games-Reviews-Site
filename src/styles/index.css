@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: whitesmoke;
+  margin-bottom: 5vh;
 }
 
 code {
@@ -207,10 +208,6 @@ a:visited {
   align-items: left;
 }
 
-#noCommentsMsg {
-  display: none;
-}
-
 .commentCard {
   display: flex;
   flex-direction: column;
@@ -231,4 +228,29 @@ a:visited {
 .commentAuthor {
   font-size: 11px;
   color:rgb(0, 17, 142)
+}
+
+.commentForm {
+  display: flex;
+  background-color: white;
+  padding: 1vh 0 1vh 0;
+  width: 100%;
+  column-gap: 3px;
+}
+
+#commentField {
+  width: 100%;
+  border: 1px solid black;
+}
+
+#commentBtn {
+  margin-left: auto;
+  width: auto;
+  border: 1px solid black;
+}
+
+.loadingMsg {
+  margin-top: 5vh;
+  text-align: center;
+  font-style: italic;
 }

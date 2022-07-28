@@ -41,3 +41,14 @@ export const fetchCommentsByReviewID = (review_id) => {
       return data.comments;
     })
 };
+
+export const postComment = (review_id, comment) => {
+  console.log(comment);
+  return api.post(`/reviews/${review_id}/comments`, comment)
+    .then(({ data }) => {
+      return data.comment;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+};
