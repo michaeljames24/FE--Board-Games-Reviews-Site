@@ -34,3 +34,10 @@ export const patchReviewVotes = (review_id, num) => {
       return data.review;
     })
 };
+
+export const fetchCommentsByReviewID = (review_id) => {
+  return api.get(`/reviews/${review_id}/comments`)
+    .then(({ data }) => {
+      return data.comments;
+    })
+};

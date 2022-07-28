@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router-dom";
 import * as api from "../data/api";
 import { HeaderContext } from '../contexts/HeaderContext';
+import Comments from './Comments';
 
 export default function Review(props) {
     const { setHeader } = useContext(HeaderContext);
@@ -36,7 +37,7 @@ export default function Review(props) {
                 switch (voteHistory) {
                     case "up":
                         votesDisplay.textContent = `Votes: ${review.votes + 1}`;
-                        votesDisplay.style.color = "blue";
+                        votesDisplay.style.color = "green";
                         errorMsg.style.display = "block";
                         setHasVoted("up");
                         setVoteHistory("up");
@@ -63,7 +64,7 @@ export default function Review(props) {
         if (hasVoted === null) {
             setVoteHistory("up")
             votesDisplay.textContent = `Votes: ${review.votes + 1}`;
-            votesDisplay.style.color = "blue";
+            votesDisplay.style.color = "green";
             errorMsg.style.display = "none";
             setHasVoted("up");
             incrementVotes(1);
@@ -80,7 +81,7 @@ export default function Review(props) {
         if (hasVoted === "down") {
             setVoteHistory("up")
             votesDisplay.textContent = `Votes: ${review.votes + 1}`;
-            votesDisplay.style.color = "blue";
+            votesDisplay.style.color = "green";
             errorMsg.style.display = "none";
             setHasVoted("up");
             incrementVotes(2);
@@ -116,18 +117,22 @@ export default function Review(props) {
     }
 
     return (
-        <div className="individualReview">
-            <div className="reviewDate" style={{marginRight: "auto"}}>{posted_on}</div>
-            <div className="reviewTitle">{review.title}</div>
-            <div className="reviewUser">{review.owner}</div>
-            <div className="reviewBody">{review.review_body}</div>
-            <div id="dynamicVotes">Votes: {review.votes}</div>
-            <p id="votingErrorMsg">Sorry, something went wrong. Please check your Internet connection and try again.</p>
-            <div>
-                <button onClick={() => {upVote()}} style={{backgroundColor: "yellowgreen"}}>&uarr; vote</button>
-                <button onClick={() => {downVote()}} style={{backgroundColor: "lightcoral"}}>&darr; vote</button>
+        <>
+            <div className="individualReview">
+                <div className="reviewDate" style={{marginRight: "auto"}}>{posted_on}</div>
+                <div className="reviewTitle">{review.title}</div>
+                <div className="reviewUser">{review.owner}</div>
+                <div className="reviewBody">{review.review_body}</div>
+                <div className="votesRow">
+                    <button onClick={() => {upVote()}} className="upVoteBtn">&uarr;</button>
+                    <div id="dynamicVotes">Votes: {review.votes}</div>
+                    <button onClick={() => {downVote()}} className="downVoteBtn">&darr;</button>
+                </div>
+                <p id="votingErrorMsg">Sorry, something went wrong. Please check your Internet connection and try again.</p>
             </div>
-        </div>
+            <br/>
+            <Comments review_id={review_id} />
+        </>
     );
 
 }
