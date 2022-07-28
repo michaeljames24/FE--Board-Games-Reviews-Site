@@ -161,3 +161,17 @@ a:visited {
   align-items: center;
   row-gap: 2vh;
 }
+
+#dynamicVotes {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#votingErrorMsg {
+  display: none;
+  width: 100%;
+  height: auto;
+  border: 1px solid red;
+  text-align: center;
+  color: red;
+}

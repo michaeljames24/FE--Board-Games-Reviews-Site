@@ -27,3 +27,10 @@ export const fetchReviewByID = (review_id) => {
     return data.review;
   });
 };
+
+export const patchReviewVotes = (review_id, num) => {
+  return api.patch(`/reviews/${review_id}`, {inc_votes: num})
+    .then(({ data }) => {
+      return data.review;
+    })
+};
