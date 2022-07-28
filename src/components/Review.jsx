@@ -11,6 +11,7 @@ export default function Review(props) {
 
     // VOTING:
     const [hasVoted, setHasVoted] = useState(null);
+    const [voteHistory, setVoteHistory] = useState([null]);
 
     // REVIEW DATE:
     const reviewDate = new Date(review.created_at);
@@ -32,16 +33,35 @@ export default function Review(props) {
         api.patchReviewVotes(review_id, num)
         .then((data) => {console.log("new value in api =" + data.votes)})
             .catch(() => {
-                votesDisplay.textContent = `Votes: ${review.votes}`;
-                votesDisplay.style.color = "black";
-                errorMsg.style.display = "block";
-                setHasVoted(null);
+                switch (voteHistory) {
+                    case "up":
+                        votesDisplay.textContent = `Votes: ${review.votes + 1}`;
+                        votesDisplay.style.color = "blue";
+                        errorMsg.style.display = "block";
+                        setHasVoted("up");
+                        setVoteHistory("up");
+                        break;
+                    case "down":
+                        votesDisplay.textContent = `Votes: ${review.votes - 1}`;
+                        votesDisplay.style.color = "red";
+                        errorMsg.style.display = "block";
+                        setHasVoted("down");
+                        setVoteHistory("down");
+                        break;
+                    default:
+                        votesDisplay.textContent = `Votes: ${review.votes}`;
+                        votesDisplay.style.color = "black";
+                        errorMsg.style.display = "block";
+                        setHasVoted(null);
+                        setVoteHistory(null);
+                }
             });
     }
 
     function upVote() {
 
         if (hasVoted === null) {
+            setVoteHistory("up")
             votesDisplay.textContent = `Votes: ${review.votes + 1}`;
             votesDisplay.style.color = "blue";
             errorMsg.style.display = "none";
@@ -50,6 +70,7 @@ export default function Review(props) {
         }
 
         if (hasVoted === "up") {
+            setVoteHistory(null);
             votesDisplay.textContent = `Votes: ${review.votes}`;
             votesDisplay.style.color = "black";
             errorMsg.style.display = "none";
@@ -57,6 +78,7 @@ export default function Review(props) {
             incrementVotes(-1);
         }
         if (hasVoted === "down") {
+            setVoteHistory("up")
             votesDisplay.textContent = `Votes: ${review.votes + 1}`;
             votesDisplay.style.color = "blue";
             errorMsg.style.display = "none";
@@ -68,6 +90,7 @@ export default function Review(props) {
     function downVote() {
 
         if (hasVoted === null) {
+            setVoteHistory("down")
             votesDisplay.textContent = `Votes: ${review.votes - 1}`;
             votesDisplay.style.color = "red";
             errorMsg.style.display = "none";
@@ -75,6 +98,7 @@ export default function Review(props) {
             incrementVotes(-1);
         }
         if (hasVoted === "down") {
+            setVoteHistory(null)
             votesDisplay.textContent = `Votes: ${review.votes}`;
             votesDisplay.style.color = "black";
             errorMsg.style.display = "none";
@@ -82,6 +106,7 @@ export default function Review(props) {
             incrementVotes(1);
         }
         if (hasVoted === "up") {
+            setVoteHistory("down")
             votesDisplay.textContent = `Votes: ${review.votes - 1}`;
             votesDisplay.style.color = "red";
             errorMsg.style.display = "none";
