@@ -9,6 +9,7 @@ export default function Review(props) {
     const { setHeader } = useContext(HeaderContext);
     const [review, setReview] = useState({});
     const {review_id} = useParams();
+    const [isLoading, setIsLoading] = useState(true);
 
     // VOTING:
     const [hasVoted, setHasVoted] = useState(null);
@@ -18,19 +19,20 @@ export default function Review(props) {
     const reviewDate = new Date(review.created_at);
     const posted_on = `${reviewDate.getDate()}/${reviewDate.getMonth() + 1}/${reviewDate.getFullYear()} - ${reviewDate.getHours()}:${reviewDate.getMinutes()}`;
 
-    // DOM:
-    const votesDisplay = document.getElementById("dynamicVotes");
-    const errorMsg = document.getElementById("votingErrorMsg");
-
     useEffect(() => {
+        setIsLoading(true);
         setHeader(`Review ${review_id}`);
         api.fetchReviewByID(review_id)
             .then(review => {
                 setReview(review);
+                setIsLoading(false);
             });
     }, [setHeader, review_id]);
 
     function incrementVotes(num) {
+        const votesDisplay = document.getElementById("dynamicVotes");
+        const errorMsg = document.getElementById("votingErrorMsg");
+
         api.patchReviewVotes(review_id, num)
         .then((data) => {console.log("new value in api =" + data.votes)})
             .catch(() => {
@@ -60,6 +62,8 @@ export default function Review(props) {
     }
 
     function upVote() {
+        const votesDisplay = document.getElementById("dynamicVotes");
+        const errorMsg = document.getElementById("votingErrorMsg");
 
         if (hasVoted === null) {
             setVoteHistory("up")
@@ -89,6 +93,8 @@ export default function Review(props) {
     }
 
     function downVote() {
+        const votesDisplay = document.getElementById("dynamicVotes");
+        const errorMsg = document.getElementById("votingErrorMsg");
 
         if (hasVoted === null) {
             setVoteHistory("down")
@@ -116,7 +122,7 @@ export default function Review(props) {
         }
     }
 
-    return (
+    return isLoading ? (<p className='loadingMsg' style={{marginTop: "15vh"}}>Loading review...</p>) : (
         <>
             <div className="individualReview">
                 <div className="reviewDate" style={{marginRight: "auto"}}>{posted_on}</div>
