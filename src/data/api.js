@@ -51,3 +51,13 @@ export const postComment = (review_id, comment) => {
       console.log(err);
     })
 };
+
+export const deleteCommentByID = (comment_id) => {
+  return api.delete(`/comments/${comment_id}`);
+};
+
+export const fetchReviewsByQuery = (query, order) => {
+  return api.get(`/reviews?sort_by=${query}&order=${order}`).then(({ data }) => {
+    return data;
+  });
+};
