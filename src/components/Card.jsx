@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import { useContext } from 'react';
 import { CategoryContext } from '../contexts/CategoryContext';
 
-export default function Header(props) {
+export default function Card(props) {
 
     const { setCategoryFilter } = useContext(CategoryContext);
 
@@ -54,9 +54,12 @@ export default function Header(props) {
                 <div className="commentDate">{posted_on}</div>
                 <div className="commentAuthor">{props.comment.author}</div>
                 <div className="commentBody">{props.comment.body}</div>
-                <div className="commentVotes">Votes: {props.comment.votes}</div>
+                <div className="commentCardRowFour">
+                    <div className="commentVotes">Votes: {props.comment.votes}</div>
+                    {props.comment.author === "default_user123" && <button className="delCommentBtn" onClick={() => {props.setCommentToDelete(props.comment.comment_id)}}>delete</button>}
+                </div>
             </div>
         )
     }
-    
+
 }

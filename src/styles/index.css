@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: whitesmoke;
+  margin-bottom: 5vh;
 }
 
 code {
@@ -86,6 +87,25 @@ a:visited {
   align-items: center;
   row-gap: 5vh;
 }
+
+.sortMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  column-gap: 5px;
+  padding-left: 10px;
+
+}
+
+.sortBtn {
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: 1px solid gainsboro;
+}
+
+
 
 .reviewCard {
   background-color: white;
@@ -207,8 +227,13 @@ a:visited {
   align-items: left;
 }
 
-#noCommentsMsg {
-  display: none;
+.commentsHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentScrollBtn {
+  width: auto;
 }
 
 .commentCard {
@@ -231,4 +256,65 @@ a:visited {
 .commentAuthor {
   font-size: 11px;
   color:rgb(0, 17, 142)
+}
+
+.commentForm {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 1vh 0 1vh 0;
+  width: 100%;
+  column-gap: 3px;
+}
+
+#commentField {
+  width: 100%;
+  height: 50px;
+  border: 1px solid black;
+}
+
+#commentBtn {
+  margin-left: auto;
+  width: auto;
+  height: auto;
+  border: 1px solid black;
+}
+
+.loadingMsg {
+  margin-top: 5vh;
+  text-align: center;
+  font-style: italic;
+}
+
+#commentErrorMsg {
+  color: red;
+  font-size: 12px;
+}
+
+.commentCardRowFour {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delCommentBtn {
+  width: auto;
+  background-color: transparent;
+  border: 1px solid gainsboro;
+}
+
+#notification_modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 50px; /* Full height */
+  background-color: rgb(249, 100, 100);
+  opacity: 90%;
+  margin-top: -4vh;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bolder;
 }
