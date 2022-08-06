@@ -16,10 +16,16 @@ export const fetchAllCategories = () => {
   });
 };
 
-export const fetchReviewsByCategory = (category) => {
-  return api.get(`/reviews?category=${category}`).then(({ data }) => {
-    return data;
-  });
+export const fetchReviewsByCategory = (category, sortBy, order) => {
+  if (!sortBy && !order) {
+    return api.get(`/reviews?category=${category}`).then(({ data }) => {
+      return data;
+    });
+  } else {
+    return api.get(`/reviews?category=${category}&sort_by=${sortBy}&order=${order}`).then(({ data }) => {
+      return data;
+    });
+  }
 };
 
 export const fetchReviewByID = (review_id) => {

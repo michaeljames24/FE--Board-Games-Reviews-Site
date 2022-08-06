@@ -34,33 +34,69 @@ export default function Reviews(props) {
             setIsLoading(true);
             switch (sortedBy) {
                 case "sortNewest":
-                    api.fetchReviewsByQuery("created_at", "DESC")
+                    if (props.categoryFilter) {
+                        api.fetchReviewsByCategory(props.categoryFilter, "created_at", "DESC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    } else {
+                        api.fetchReviewsByQuery("created_at", "DESC")
                         .then(reviewData => {
                             setReviews(reviewData);
                             setIsLoading(false);
                         });
-                    break;
+                        break;
+                    }
                 case "sortOldest":
-                    api.fetchReviewsByQuery("created_at", "ASC")
-                        .then(reviewData => {
-                            setReviews(reviewData);
-                            setIsLoading(false);
-                        });
-                    break;
+                    if (props.categoryFilter) {
+                        api.fetchReviewsByCategory(props.categoryFilter, "created_at", "ASC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    } else {
+                        api.fetchReviewsByQuery("created_at", "ASC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    }
                 case "sortUser":
-                    api.fetchReviewsByQuery("owner", "ASC")
-                        .then(reviewData => {
-                            setReviews(reviewData);
-                            setIsLoading(false);
-                        });
-                    break;
+                    if (props.categoryFilter) {
+                        api.fetchReviewsByCategory(props.categoryFilter, "owner", "ASC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    } else {
+                        api.fetchReviewsByQuery("owner", "ASC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    }
                 case "sortVotes":
-                    api.fetchReviewsByQuery("votes", "DESC")
-                        .then(reviewData => {
-                            setReviews(reviewData);
-                            setIsLoading(false);
-                        });
-                    break;
+                    if (props.categoryFilter) {
+                        api.fetchReviewsByCategory(props.categoryFilter, "votes", "DESC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    } else {
+                        api.fetchReviewsByQuery("votes", "DESC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    }
                 default:
                     api.fetchAllReviews()
                         .then(reviewData => {
@@ -71,11 +107,20 @@ export default function Reviews(props) {
         }
     }, [sortedBy]);
 
+    useEffect(() => {
+        if (!isLoading) {
+            const sortBtns = Array.from(document.getElementsByClassName("sortBtn"));
+            sortBtns.forEach(btn => {btn.style.backgroundColor = "transparent";});
+            document.getElementById(sortedBy).style.backgroundColor = "gainsboro";
+        }
+        // eslint-disable-next-line
+    }, [isLoading]);
+
     return isLoading ? (<p className='loadingMsg' style={{marginTop: "20vh"}}>Loading Reviews...</p>) : (
         <div className="listContainer">
             <div className="sortMenu">
                 <p style={{marginRight: "5vh"}}>&uarr;&darr;</p>
-                <button className="sortBtn" id="sortNewest" onClick={() => {setSortedBy("sortNewest")}}>Newest</button>
+                <button className="sortBtn" id="sortNewest" onClick={() => {setSortedBy("sortNewest")}} style={{backgroundColor: "gainsboro"}}>Newest</button>
                 <button className="sortBtn" id="sortOldest" onClick={() => {setSortedBy("sortOldest")}}>Oldest</button>
                 <button className="sortBtn" id="sortUser" onClick={() => {setSortedBy("sortUser")}}>User</button>
                 <button className="sortBtn" id="sortVotes" onClick={() => {setSortedBy("sortVotes")}}>Votes</button>
