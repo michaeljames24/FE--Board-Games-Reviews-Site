@@ -67,3 +67,9 @@ export const fetchReviewsByQuery = (query, order) => {
     return data;
   });
 };
+
+export const fetchAllUsers = () => {
+  return api.get(`/users`).then(({ data }) => {
+    return data;
+  });
+};

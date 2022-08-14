@@ -10,6 +10,7 @@ export default function Review(props) {
     const [review, setReview] = useState({});
     const {review_id} = useParams();
     const [isLoading, setIsLoading] = useState(true);
+    const [notFound, setNotFound] = useState(false);
 
     // VOTING:
     const [hasVoted, setHasVoted] = useState(null);
@@ -21,12 +22,17 @@ export default function Review(props) {
 
     useEffect(() => {
         setIsLoading(true);
-        setHeader(`Review ${review_id}`);
         api.fetchReviewByID(review_id)
             .then(review => {
+                setHeader(`Review ${review_id}`);
                 setReview(review);
                 setIsLoading(false);
-            });
+            })
+            .catch(() => {
+                setHeader("Review Not Found");
+                setNotFound(true);
+                setIsLoading(false);
+            })
     }, [setHeader, review_id]);
 
     function incrementVotes(num) {
@@ -122,7 +128,7 @@ export default function Review(props) {
         }
     }
 
-    return isLoading ? (<p className='loadingMsg' style={{marginTop: "15vh"}}>Loading review...</p>) : (
+    return isLoading ? (<p className="loadingMsg" style={{marginTop: "15vh"}}>Loading review...</p>) : notFound ? (<div className="listContainer"><p className="errorMsg" style={{marginTop: "15vh"}}>Review not found.</p></div>) : (
         <>
             <div className="individualReview">
                 <div className="reviewDate" style={{marginRight: "auto"}}>{posted_on}</div>
@@ -138,7 +144,7 @@ export default function Review(props) {
             </div>
             <br/>
             <Comments review_id={review_id} />
-        </>
+        </>           
     );
 
 }

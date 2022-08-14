@@ -43,7 +43,6 @@ export default function Comments({review_id}) {
     useEffect(() => {
         if (commentToDelete) {
             setIsLoading(true);
-            console.log(commentToDelete + " has been deleted.")
             api.deleteCommentByID(commentToDelete)
                 .then(() => {
                     api.fetchCommentsByReviewID(review_id)

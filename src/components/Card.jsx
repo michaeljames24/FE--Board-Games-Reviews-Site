@@ -62,4 +62,18 @@ export default function Card(props) {
         )
     }
 
+    if (props.user) {
+        
+        return (
+            <div className="userCard">
+                <div className="userName">{props.user.username} ({props.user.name})</div>
+                <br />
+                <img className="userAvatar" src={props.user.avatar_url} alt={`${props.user.username}'s avatar`}></img>
+            </div>
+        )
+
+    }
+
+    
+
 }

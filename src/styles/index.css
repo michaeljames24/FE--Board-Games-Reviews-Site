@@ -286,6 +286,11 @@ a:visited {
   font-style: italic;
 }
 
+.errorMsg {
+  margin-top: 5vh;
+  text-align: center;
+}
+
 #commentErrorMsg {
   color: red;
   font-size: 12px;
@@ -317,4 +322,29 @@ a:visited {
   text-align: center;
   line-height: 50px;
   font-weight: bolder;
+}
+
+.userCard {
+  background-color: white;
+  width: 75vw;
+  height: auto;
+  padding: 10px;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  box-shadow: 0 8px 12px 0 gainsboro;
+  text-align: center;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.userAvatar {
+  width: 25vw;
+  margin-left: auto;
+  margin-right: auto;
 }

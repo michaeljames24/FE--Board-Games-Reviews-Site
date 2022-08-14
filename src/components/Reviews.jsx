@@ -9,16 +9,24 @@ export default function Reviews(props) {
     const { setHeader } = useContext(HeaderContext);
     const [isLoading, setIsLoading] = useState(true);
     const [sortedBy, setSortedBy] = useState("sortNewest");
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
-        if (props.categoryFilter) {
+        setNotFound(false);
+        setSortedBy("sortNewest");
+        if (window.location.pathname !== "/reviews" && window.location.pathname !== "/") {
             setIsLoading(true);
-            setHeader(`Categories/ ${props.categoryFilter}`);
-            api.fetchReviewsByCategory(props.categoryFilter)
+            api.fetchReviewsByCategory(window.location.pathname.split("/")[2])
                 .then(reviewData => {
+                    setHeader(`Categories/ ${window.location.pathname.split("/")[2]}`);
                     setReviews(reviewData);
                     setIsLoading(false);
-                });
+                })
+                .catch(() => {
+                    setHeader("Category Not Found");
+                    setNotFound(true);
+                    setIsLoading(false);
+                })
         } else {
             setHeader("Latest Reviews");
             api.fetchAllReviews()
@@ -34,67 +42,87 @@ export default function Reviews(props) {
             setIsLoading(true);
             switch (sortedBy) {
                 case "sortNewest":
-                    if (props.categoryFilter) {
-                        api.fetchReviewsByCategory(props.categoryFilter, "created_at", "DESC")
+                    if (window.location.pathname !== "/reviews" && window.location.pathname !== "/") {
+                        api.fetchReviewsByCategory(window.location.pathname.split("/")[2], "created_at", "DESC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    } else if (window.location.pathname === "/reviews" || window.location.pathname === "/") {
+                        api.fetchReviewsByQuery("created_at", "DESC")
                             .then(reviewData => {
                                 setReviews(reviewData);
                                 setIsLoading(false);
                             });
                         break;
                     } else {
-                        api.fetchReviewsByQuery("created_at", "DESC")
-                        .then(reviewData => {
-                            setReviews(reviewData);
-                            setIsLoading(false);
-                        });
+                        setHeader("Category Not Found");
+                        setNotFound(true);
+                        setIsLoading(false);
                         break;
                     }
                 case "sortOldest":
-                    if (props.categoryFilter) {
-                        api.fetchReviewsByCategory(props.categoryFilter, "created_at", "ASC")
+                    if (window.location.pathname !== "/reviews" && window.location.pathname !== "/") {
+                        api.fetchReviewsByCategory(window.location.pathname.split("/")[2], "created_at", "ASC")
                             .then(reviewData => {
                                 setReviews(reviewData);
                                 setIsLoading(false);
                             });
                         break;
-                    } else {
+                    } else if (window.location.pathname === "/reviews" || window.location.pathname === "/") {
                         api.fetchReviewsByQuery("created_at", "ASC")
                             .then(reviewData => {
                                 setReviews(reviewData);
                                 setIsLoading(false);
                             });
                         break;
+                    } else {
+                        setHeader("Category Not Found");
+                        setNotFound(true);
+                        setIsLoading(false);
+                        break;
                     }
                 case "sortUser":
-                    if (props.categoryFilter) {
-                        api.fetchReviewsByCategory(props.categoryFilter, "owner", "ASC")
+                    if (window.location.pathname !== "/reviews" && window.location.pathname !== "/") {
+                        api.fetchReviewsByCategory(window.location.pathname.split("/")[2], "owner", "ASC")
                             .then(reviewData => {
                                 setReviews(reviewData);
                                 setIsLoading(false);
                             });
                         break;
-                    } else {
+                    } else if (window.location.pathname === "/reviews" || window.location.pathname === "/") {
                         api.fetchReviewsByQuery("owner", "ASC")
                             .then(reviewData => {
                                 setReviews(reviewData);
                                 setIsLoading(false);
                             });
                         break;
+                    } else {
+                        setHeader("Category Not Found");
+                        setNotFound(true);
+                        setIsLoading(false);
+                        break;
                     }
                 case "sortVotes":
-                    if (props.categoryFilter) {
-                        api.fetchReviewsByCategory(props.categoryFilter, "votes", "DESC")
+                    if (window.location.pathname !== "/reviews" && window.location.pathname !== "/") {
+                        api.fetchReviewsByCategory(window.location.pathname.split("/")[2], "votes", "DESC")
+                            .then(reviewData => {
+                                setReviews(reviewData);
+                                setIsLoading(false);
+                            });
+                        break;
+                    } else if (window.location.pathname === "/reviews" || window.location.pathname === "/") {
+                        api.fetchReviewsByQuery("votes", "DESC")
                             .then(reviewData => {
                                 setReviews(reviewData);
                                 setIsLoading(false);
                             });
                         break;
                     } else {
-                        api.fetchReviewsByQuery("votes", "DESC")
-                            .then(reviewData => {
-                                setReviews(reviewData);
-                                setIsLoading(false);
-                            });
+                        setHeader("Category Not Found");
+                        setNotFound(true);
+                        setIsLoading(false);
                         break;
                     }
                 default:
@@ -105,18 +133,17 @@ export default function Reviews(props) {
                         });
             }
         }
-    }, [sortedBy]);
+    }, [sortedBy, setHeader]);
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && !notFound) {
             const sortBtns = Array.from(document.getElementsByClassName("sortBtn"));
             sortBtns.forEach(btn => {btn.style.backgroundColor = "transparent";});
             document.getElementById(sortedBy).style.backgroundColor = "gainsboro";
         }
-        // eslint-disable-next-line
-    }, [isLoading]);
+    }, [isLoading, notFound, sortedBy]);
 
-    return isLoading ? (<p className='loadingMsg' style={{marginTop: "20vh"}}>Loading Reviews...</p>) : (
+    return isLoading ? (<p className='loadingMsg' style={{marginTop: "20vh"}}>Loading Reviews...</p>) : notFound ? (<div className="listContainer"><p className="errorMsg" style={{marginTop: "15vh"}}>Category not found.</p></div>) : (
         <div className="listContainer">
             <div className="sortMenu">
                 <p style={{marginRight: "5vh"}}>&uarr;&darr;</p>
