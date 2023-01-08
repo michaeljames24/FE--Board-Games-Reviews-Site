@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://nc-mb-board-games.herokuapp.com/api",
+  baseURL: "https://boards-games-nc.onrender.com/api",
 });
 
 export const fetchAllReviews = () => {

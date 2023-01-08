@@ -43,7 +43,7 @@ function App() {
         <Navigation setCategoryFilter={setCategoryFilter}/>
         <Notification />
         <Routes>
-        <Route path="/" element={<Reviews/>}></Route>
+          <Route path="/" element={<Reviews/>}></Route>
           <Route path="/reviews" element={<Reviews/>}></Route>
           <Route path="/reviews/:review_id" element={<Review />}></Route>
           <Route path="/categories" element={<Categories category={{categoryFilter, setCategoryFilter}}/>}></Route>
